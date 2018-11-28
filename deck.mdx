@@ -1,0 +1,200 @@
+import { Head, Appear, Image, Link } from "mdx-deck";
+export { default as theme } from "./theme";
+import { CodeSurfer } from "mdx-deck-code-surfer";
+import codeTheme from "prism-react-renderer/themes/vsDark";
+
+# PARK PARK
+
+## GO GO!
+
+<img
+  src={require("file-loader!./img/network.svg")}
+  style={{ height: "30vh" }}
+/>
+
+---
+
+## Topics covered
+
+- Why Go?
+- Hello World
+- Web services
+- Web services with JSON
+- SQL
+- Directory structure
+- Useful links
+
+---
+
+## Topics _not_ covered
+
+- Language features
+- Testing
+
+---
+
+## Why Go?
+
+<Appear>
+  <img
+    src={require("!file-loader!./img/gotham.svg")}
+    style={{ width: "80vw" }}
+  />
+</Appear>
+
+---
+
+## My favourite things
+
+1. Opinionated as #"!
+2. Typed
+3. Best standard-library
+4. Interface
+5. Great community
+
+---
+
+## Other things
+
+- Concurrency
+- Tooling
+- OOP, but not Java OOP
+
+---
+
+## Before we start
+
+### Godoc
+
+- https://godoc.org
+
+```bash
+$ go doc
+```
+
+---
+
+<CodeSurfer
+  title="hello.go"
+  code={require("!raw-loader!./code/hello/hello.go")}
+/>
+
+---
+
+<CodeSurfer
+  title="webservice.go"
+  code={require("!raw-loader!./code/webservice/webservice.go")}
+/>
+
+---
+
+<CodeSurfer
+  title="jsonservice.go"
+  code={require("!raw-loader!./code/jsonservice/jsonservice.go")}
+/>
+
+---
+
+## jsonservice.go
+
+```bash
+$ go run code/jsonservice/jsonservice.go
+```
+
+```bash
+$ curl http://localhost:3022
+Welcome to PARKPARK!
+$ curl http://localhost:3022/greet
+Invalid input
+$ curl -X POST -d '{"name" : "PARKPARK"}' http://localhost:3022/greet
+{"text":"Hello PARKPARK"}
+$ curl -X POST -d '{"name" : "PARKPARK"}' http://localhost:3022/greet
+{"text":"Hello PARKPARK"}
+```
+
+---
+
+<CodeSurfer
+  title="sql.go"
+  showNumbers={true}
+  code={require("!raw-loader!./code/sql/sql.go")}
+  steps={[
+    { lines: [6], notes: "SQL interface from stdlib" },
+    { lines: [10], notes: "SQL driver" },
+    { lines: [14], notes: "Connect and configure" },
+    { range: [20, 27], notes: "Create table" },
+    { range: [29, 32], notes: "Insert row" },
+    { range: [34, 48], notes: "Query" },
+    { notes: "The entire example" }
+  ]}
+/>
+
+---
+
+## From development to production
+
+- Just a single binary (and assets)
+- You don't need a web-server
+- You don't need rewrite rules
+
+---
+
+## Development
+
+- Start locally.
+- Use ENV vars to configure
+- You probably don't need Docker
+- go run cmd/myawesomeproject.go
+- go build ./...
+- go install
+- go test ./...
+
+---
+
+## Production
+
+- A very slim Docker container
+- Deployed to our Kubernetes cluster
+- Using Gitlab-CI to automatically build
+
+---
+
+## Standard Code Layout
+
+- `/git/awesomesauce/`
+- `/git/awesomesauce/cmd`
+- `/git/awesomesauce/pkg`
+- `/git/awesomesauce/internal`
+
+https://github.com/golang-standards/project-layout
+
+---
+
+## Starting a new project
+
+### Pre Go 1.11
+
+`$GOPATH` and what not
+
+### Now
+
+```
+cd ~/git/awesomesauce
+go mod init awesomesauce
+go get gitlab.com/fancypants/fancypantslib
+```
+
+Your dependencies are now stored in `go.mod` and version locked by `go.sum`
+
+You don't need to store your code in `~/go/src/` anymore
+
+---
+
+## Resources
+
+- Go Doc (again): https://godoc.org
+- Go Web: https://gowebexamples.com/
+- Go By Example: https://gobyexample.com/
+- JustForFunc YT Channel: https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw
+- Awesome Go: https://awesome-go.com/
+- Level Up? Gophercises! https://gophercises.com/
